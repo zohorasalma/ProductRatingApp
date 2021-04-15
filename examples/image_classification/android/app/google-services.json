@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "617355969190",
+    "firebase_url": "https://image-classification-a9d9e-default-rtdb.firebaseio.com",
+    "project_id": "image-classification-a9d9e",
+    "storage_bucket": "image-classification-a9d9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617355969190:android:4896c6b85874979d2b6a67",
+        "android_client_info": {
+          "package_name": "org.tensorflow.lite.examples.classification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617355969190-o2jd52ufrbelu9joonn53aktsou6otdu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1JgHBLUWUdDgOxIhzbBBeQK6TKErYP9U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617355969190-o2jd52ufrbelu9joonn53aktsou6otdu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
