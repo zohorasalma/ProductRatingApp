@@ -5,16 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".giveRatingsActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingTextid"
+        android:text="Do you want to rate for this product?"
+        android:textStyle="italic"
+        android:textColor="#3F51B5"
+        android:layout_marginTop="200dp"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp"/>
 
     <RatingBar
+        android:backgroundTint="#F5D81CF8"
+        android:layout_below="@+id/ratingTextid"
+        android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ratingbarid"
         android:numStars="5"
         android:stepSize="1"
-        android:layout_centerInParent="true"
         android:layout_margin="10dp"/>
     <Button
+        android:layout_margin="10dp"
         android:layout_below="@+id/ratingbarid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +40,17 @@
         android:padding="10dp"
         android:onClick="onClick"
         />
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/thanksAnimationId"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false"
+        android:layout_below="@+id/submitRating"
+        app:lottie_rawRes="@raw/thankyou"
+        android:visibility="invisible"/>
+
+
 
     </RelativeLayout>
 

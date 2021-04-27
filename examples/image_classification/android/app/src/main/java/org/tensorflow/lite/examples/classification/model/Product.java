@@ -10,6 +10,8 @@ public class Product
     private float rating;
     private int ratingCount;
     private float sumRating;
+    private String photoUrl;
+
 
     public Product()
     {
@@ -23,7 +25,8 @@ public class Product
             int varientNo,
             float rating,
             int ratingCount,
-            float sumRating)
+            float sumRating,
+            String photoUrl)
     {
         this.productId = productId;
         this.productName = productName;
@@ -33,6 +36,7 @@ public class Product
         this.rating = rating;
         this.ratingCount = ratingCount;
         this.sumRating = sumRating;
+        this.photoUrl = photoUrl;
     }
 
     public int getProductId()
@@ -113,5 +117,15 @@ public class Product
     public void setSumRating(float sumRating)
     {
         this.sumRating = sumRating;
+    }
+
+    public String getPhotoUrl()
+    {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl)
+    {
+        this.photoUrl = photoUrl;
     }
 }

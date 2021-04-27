@@ -22,10 +22,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.media.Image;
 import android.media.Image.Plane;
 import android.media.ImageReader;
@@ -50,9 +56,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
+import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.firebase.database.DatabaseReference;
+
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.List;
+import java.util.Locale;
+
 import org.tensorflow.lite.examples.classification.env.ImageUtils;
 import org.tensorflow.lite.examples.classification.env.Logger;
 import org.tensorflow.lite.examples.classification.tflite.Classifier.Device;
@@ -107,6 +124,10 @@ public abstract class CameraActivity extends AppCompatActivity
   private Device device = Device.CPU;
   private int numThreads = -1;
   public String productName;
+  private float resultConfidence;
+
+  //my codes
+
 
   @Override
   protected void onCreate(final Bundle savedInstanceState) {
@@ -137,13 +158,14 @@ public abstract class CameraActivity extends AppCompatActivity
       @Override
       public void onClick(View v)
       {
-        Intent intent = new Intent(CameraActivity.this,DisplayRatingsActivity.class);
-        startActivity(intent);
-        PRODUCT_NAME = productName;
-
-
+          Intent intent = new Intent(CameraActivity.this, DisplayRatingsActivity.class);
+          startActivity(intent);
+          PRODUCT_NAME = productName;
       }
     });
+
+
+
 
     ViewTreeObserver vto = gestureLayout.getViewTreeObserver();
     vto.addOnGlobalLayoutListener(
@@ -273,6 +295,7 @@ public abstract class CameraActivity extends AppCompatActivity
         };
     processImage();
   }
+
 
   /** Callback for Camera2 API */
   @Override
@@ -543,16 +566,33 @@ public abstract class CameraActivity extends AppCompatActivity
   protected void showResultsInBottomSheet(List<Recognition> results) {
     if (results != null && results.size() >= 3) {
       Recognition recognition = results.get(0);
-      if (recognition != null) {
-        if (recognition.getTitle() != null)
+//      if (recognition != null) {
+//        if (recognition.getTitle() != null )
+//        {
+//          recognitionTextView.setText(recognition.getTitle());
+//          productName =recognition.getTitle();
+//        }
+//        if (recognition.getConfidence() != null)
+//          recognitionValueTextView.setText(
+//              String.format("%.2f", (100 * recognition.getConfidence())) + "%");
+//        resultConfidence = recognition.getConfidence();
+//      }
+      if(recognition!= null)
+      {
+        if(recognition.getTitle()!= null && recognition.getConfidence()!= null)
         {
-          recognitionTextView.setText(recognition.getTitle());
-          productName =recognition.getTitle();
+          resultConfidence = recognition.getConfidence()*100;
+          if(resultConfidence >= 90.00)
+          {
+            recognitionTextView.setText(recognition.getTitle());
+            productName =recognition.getTitle();
+            recognitionValueTextView.setText(
+                                  String.format("%.2f", (100 * recognition.getConfidence())) + "%");
+
+          }
         }
-        if (recognition.getConfidence() != null)
-          recognitionValueTextView.setText(
-              String.format("%.2f", (100 * recognition.getConfidence())) + "%");
       }
+
 
      /* Recognition recognition1 = results.get(1);
       if (recognition1 != null) {
